@@ -3,6 +3,10 @@
 bin-int/
 Intermediates/
 
+# Nebula files
+log/
+*.log
+
 # Visual Studio files and folder
 .vs/
 *.sln

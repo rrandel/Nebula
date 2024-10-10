@@ -1,13 +1,14 @@
+#include "nbpch.hpp"
 #include "Log.hpp"
+
 #include <filesystem>
-#include <vector>
 
 namespace Nebula {
 
     std::shared_ptr<spdlog::logger> Log::s_CoreLogger;
     std::shared_ptr<spdlog::logger> Log::s_ClientLogger;
 
-    const std::string Log::LOG_FILE_PREFIX = "logs/Nebula";
+    const std::string Log::LOG_FILE_PREFIX = "log/Nebula";
     const std::string Log::LOG_FILE_EXTENSION = ".log";
     const size_t Log::MAX_LOG_FILES = 5; // Maximum number of log files
 

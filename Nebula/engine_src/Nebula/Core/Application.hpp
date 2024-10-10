@@ -1,5 +1,6 @@
 #pragma once
 #include "Base.hpp"
+#include "Nebula/Events/Event.hpp"
 
 namespace Nebula {
 

@@ -19,3 +19,5 @@
     // No-op when not in debug mode
     #define NB_DEBUGBREAK()
 #endif
+
+#define BIT(x) (1 << x)

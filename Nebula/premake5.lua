@@ -7,6 +7,9 @@ project "Nebula"
 	targetdir ("%{wks.location}/bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("%{wks.location}/bin-int/" .. outputdir .. "/%{prj.name}")
 
+	pchheader "nbpch.hpp"
+	pchsource "engine_src/nbpch.cpp"
+
 	files
 	{
 		"engine_src/**.hpp",
