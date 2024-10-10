@@ -15,7 +15,9 @@ project "Nebula"
 
 	includedirs
 	{
-		"engine_src"
+		"engine_src",
+		"vendor/spdlog/include",
+		"Nebula/vendor",
 	}
 
 	filter "system:windows"
