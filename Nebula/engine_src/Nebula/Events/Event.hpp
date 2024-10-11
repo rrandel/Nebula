@@ -23,8 +23,6 @@ namespace Nebula {
         MouseButton = BIT(4)
     };
 
-    #include "EventCategoryOperators.hpp"
-
 
 #define EVENT_CLASS_TYPE(type) \
         static EventType GetStaticType() { return EventType::type; } \
