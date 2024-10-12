@@ -8,8 +8,4 @@ namespace Nebula {
 	{
 	}
 
-	Layer::~Layer()
-	{
-	}
-
 }
