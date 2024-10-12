@@ -44,6 +44,6 @@
     #endif
 #endif
 
-#ifndef NB_PLATFORM_WINDOWS
+#if !defined(NB_PLATFORM_WINDOWS) && !defined(NB_PLATFORM_MACOS) && !defined(NB_PLATFORM_IOS) && !defined(NB_PLATFORM_ANDROID) && !defined(NB_PLATFORM_LINUX)
     #error "Unknown platform!"
 #endif

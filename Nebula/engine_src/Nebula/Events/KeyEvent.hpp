@@ -6,17 +6,16 @@
 
 namespace Nebula {
 
-    class KeyEvent : public Event
-    {
+    class KeyEvent : public Event {
     public:
-        int32_t GetKeyCode() const { return m_KeyCode; }
+        KeyCode GetKeyCode() const { return m_KeyCode; }
 
         EVENT_CLASS_CATEGORY(EventCategory::Keyboard | EventCategory::Input)
     protected:
-        KeyEvent(int32_t keycode)
+        KeyEvent(KeyCode keycode)
             : m_KeyCode(keycode) {}
 
-        int32_t m_KeyCode;
+        KeyCode m_KeyCode;
     };
 
     class KeyPressedEvent : public KeyEvent {
@@ -26,8 +25,7 @@ namespace Nebula {
 
         bool IsRepeat() const { return m_IsRepeat; }
 
-        std::string ToString() const override
-        {
+        std::string ToString() const override {
             std::stringstream ss;
             ss << "KeyPressedEvent: " << m_KeyCode << " (repeat = " << m_IsRepeat << ")";
             return ss.str();
@@ -40,7 +38,7 @@ namespace Nebula {
 
     class KeyReleasedEvent : public KeyEvent {
     public:
-        KeyReleasedEvent(int32_t keycode)
+        KeyReleasedEvent(const KeyCode keycode)
             : KeyEvent(keycode) {}
 
         std::string ToString() const override {
@@ -54,7 +52,7 @@ namespace Nebula {
 
     class KeyTypedEvent : public KeyEvent {
     public:
-        KeyTypedEvent(int32_t keycode)
+        KeyTypedEvent(const KeyCode keycode)
             : KeyEvent(keycode) {}
 
         std::string ToString() const override {
@@ -67,3 +65,4 @@ namespace Nebula {
     };
 
 }
+

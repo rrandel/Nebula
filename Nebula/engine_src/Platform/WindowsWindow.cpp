@@ -1,4 +1,5 @@
 #include "nbpch.hpp"
+#include "Nebula/Core/Assert.hpp"
 #include "WindowsWindow.hpp"
 
 #include "Nebula/Events/ApplicationEvent.hpp"
@@ -61,15 +62,17 @@ namespace Nebula {
 				auto& data = *(WindowData*)glfwGetWindowUserPointer(window);
 				data.Width = width;
 				data.Height = height;
+
 				WindowResizeEvent event(width, height);
-				data.EventCallback(event);
+				data.EventCallback(event); // Passing lvalue
 			});
 
 		glfwSetWindowCloseCallback(m_Window, [](GLFWwindow* window)
 			{
 				auto& data = *(WindowData*)glfwGetWindowUserPointer(window);
+
 				WindowCloseEvent event;
-				data.EventCallback(event);
+				data.EventCallback(event); // Passing lvalue
 			});
 
 		glfwSetKeyCallback(m_Window, [](GLFWwindow* window, int32_t key, int32_t scancode, int32_t action, int32_t mods)
@@ -78,14 +81,23 @@ namespace Nebula {
 				switch (action)
 				{
 				case GLFW_PRESS:
-					data.EventCallback(KeyPressedEvent(key, 0));
+				{
+					KeyPressedEvent event((KeyCode)key, 0);
+					data.EventCallback(event); // Passing lvalue
 					break;
+				}
 				case GLFW_RELEASE:
-					data.EventCallback(KeyReleasedEvent(key));
+				{
+					KeyReleasedEvent event((KeyCode)key);
+					data.EventCallback(event); // Passing lvalue
 					break;
+				}
 				case GLFW_REPEAT:
-					data.EventCallback(KeyPressedEvent(key, 1));
+				{
+					KeyPressedEvent event((KeyCode)key, 1);
+					data.EventCallback(event); // Passing lvalue
 					break;
+				}
 				}
 			});
 
@@ -95,24 +107,34 @@ namespace Nebula {
 				switch (action)
 				{
 				case GLFW_PRESS:
-					data.EventCallback(MouseButtonPressedEvent(button));
+				{
+					MouseButtonPressedEvent event(button);
+					data.EventCallback(event); // Passing lvalue
 					break;
+				}
 				case GLFW_RELEASE:
-					data.EventCallback(MouseButtonReleasedEvent(button));
+				{
+					MouseButtonReleasedEvent event(button);
+					data.EventCallback(event); // Passing lvalue
 					break;
+				}
 				}
 			});
 
 		glfwSetScrollCallback(m_Window, [](GLFWwindow* window, double xOffset, double yOffset)
 			{
 				auto& data = *(WindowData*)glfwGetWindowUserPointer(window);
-				data.EventCallback(MouseScrolledEvent((float)xOffset, (float)yOffset));
+
+				MouseScrolledEvent event((float)xOffset, (float)yOffset);
+				data.EventCallback(event); // Passing lvalue
 			});
 
 		glfwSetCursorPosCallback(m_Window, [](GLFWwindow* window, double xPos, double yPos)
 			{
 				auto& data = *(WindowData*)glfwGetWindowUserPointer(window);
-				data.EventCallback(MouseMovedEvent((float)xPos, (float)yPos));
+
+				MouseMovedEvent event((float)xPos, (float)yPos);
+				data.EventCallback(event); // Passing lvalue
 			});
 	}
 

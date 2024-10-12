@@ -18,6 +18,7 @@ project "Sandbox"
 		"%{wks.location}/Nebula/vendor/spdlog/include",
 		"%{wks.location}/Nebula/engine_src",
 		"%{wks.location}/Nebula/vendor",
+		"%{IncludeDir.Glad}",
 		"%{IncludeDir.glm}"
 	}
 
@@ -38,8 +39,6 @@ project "Sandbox"
 		defines { "NB_DEBUG" }
 		runtime "Debug"
 		symbols "on"
-		ignoredefaultlibraries { "LIBCMT", "LIBCPMT" }
-		linkoptions { "/NODEFAULTLIB:LIBCMT" }
 
 	filter "configurations:Release"
 		defines { "NB_RELEASE" }
@@ -51,5 +50,27 @@ project "Sandbox"
 		runtime "Release"
 		optimize "Full"
 		symbols "Off"
-		flags { "LinkTimeOptimization" }
-		buildoptions { "/O2" }
+		
+	filter "system:linux"
+		systemversion "latest"
+
+		defines
+		{
+			"NB_PLATFORM_LINUX"
+		}
+
+	filter "configurations:Debug"
+		defines { "NB_DEBUG" }
+		runtime "Debug"
+		symbols "on"
+
+	filter "configurations:Release"
+		defines { "NB_RELEASE" }
+		runtime "Release"
+		optimize "on"
+
+	filter "configurations:Dist"
+		defines { "NB_DIST" }
+		runtime "Release"
+		optimize "Full"
+		symbols "Off"

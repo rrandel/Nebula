@@ -1,7 +1,6 @@
 #pragma once
 #include "PlatformDetection.hpp"
-
-#include "memory"
+#include <memory>
 
 // Define debug break functionality based on platform
 #ifdef NB_DEBUG
@@ -46,5 +45,3 @@ namespace Nebula {
     }
 }
 
-#include "Nebula/Core/Log.hpp"
-#include "Nebula/Core/Assert.hpp"

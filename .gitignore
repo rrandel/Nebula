@@ -14,3 +14,22 @@ log/
 *.vcxproj.filters
 *.user
 *.vcxproj.user
+
+# Linux-specific files
+*.o
+*.so
+*.a
+*.out
+
+# Temporary files
+*~
+*.tmp
+*.temp
+
+# Backup files
+*.bak
+*.swp
+
+# Makefiles
+Makefile
+makefile

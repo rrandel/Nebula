@@ -5,9 +5,12 @@
 #include <filesystem>
 
 #ifdef NB_ENABLE_ASSERTS
-	#define NB_ASSERT(x, ...) { if(!(x)) { NB_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
-	#define NB_CORE_ASSERT(x, ...) { if(!(x)) { NB_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); __debugbreak(); } }
+    // Use NB_DEBUGBREAK based on platform defined in Base.hpp
+	#define NB_ASSERT(x, ...) { if(!(x)) { NB_ERROR("Assertion Failed: {0}", __VA_ARGS__); NB_DEBUGBREAK(); } }
+	#define NB_CORE_ASSERT(x, ...) { if(!(x)) { NB_CORE_ERROR("Assertion Failed: {0}", __VA_ARGS__); NB_DEBUGBREAK(); } }
 #else
+    // Disable asserts when NB_ENABLE_ASSERTS is not defined
 	#define NB_ASSERT(x, ...)
 	#define NB_CORE_ASSERT(x, ...)
 #endif
+
