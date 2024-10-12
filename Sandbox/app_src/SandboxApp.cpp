@@ -7,13 +7,13 @@ public:
 		: Layer("Example")
 	{
 	}
+
 	void OnUpdate() override
 	{
-		NB_INFO("ExampleLayer::Update");
 	}
+
 	void OnEvent(Nebula::Event& event) override
 	{
-		NB_TRACE("{0}", event);
 	}
 };
 

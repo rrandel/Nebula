@@ -14,8 +14,8 @@ namespace Nebula {
 
     void Log::Init()
     {
-        if (!std::filesystem::exists("logs")) {
-            std::filesystem::create_directory("logs");
+        if (!std::filesystem::exists("log")) {
+            std::filesystem::create_directory("log");
         }
 
         std::vector<spdlog::sink_ptr> logSinks;
@@ -25,7 +25,7 @@ namespace Nebula {
         auto rotatingSink = CreateRotatingFileSink();
         logSinks.emplace_back(rotatingSink);
 
-        logSinks[0]->set_pattern("%^[%T] [%l] [%n] [%s:%#] %v%$");
+        logSinks[0]->set_pattern("%^[%T] [%l] [%n] %s:%# %v%$");
         logSinks[1]->set_pattern(R"({"timestamp":"%T","level":"%l","logger":"%n","file":"%s","line":%#,"message":"%v"})");
 
         s_CoreLogger = std::make_shared<spdlog::logger>("NEBULA", logSinks.begin(), logSinks.end());

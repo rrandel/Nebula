@@ -1,3 +1,5 @@
+include "Dependencies.lua"
+
 workspace "Nebula"
 	architecture "x86_64"
 	startproject "Sandbox"
@@ -15,6 +17,11 @@ workspace "Nebula"
 	}
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
+
+group "Dependencies"
+	include "Nebula/vendor/GLFW"
+	include "Nebula/vendor/Glad"
+group ""
 
 group "Core"
 		include "Nebula"

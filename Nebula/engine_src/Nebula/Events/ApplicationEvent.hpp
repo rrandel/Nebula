@@ -14,7 +14,9 @@ namespace Nebula {
         uint32_t GetHeight() const { return m_Height; }
 
         std::string ToString() const override {
-            return StringFromArgs("WindowResizedEvent: {} x {}", m_Width, m_Height);
+            std::stringstream ss;
+            ss << "WindowResizeEvent: " << m_Width << ", " << m_Height;
+            return ss.str();
         }
 
         EVENT_CLASS_TYPE(WindowResize)

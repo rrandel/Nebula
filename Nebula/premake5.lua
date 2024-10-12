@@ -13,7 +13,15 @@ project "Nebula"
 	files
 	{
 		"engine_src/**.hpp",
-		"engine_src/**.cpp"
+		"engine_src/**.cpp",
+		"vendor/glm/glm/**.hpp",
+		"vendor/glm/glm/**.inl"
+	}
+
+	defines
+	{
+		"_CRT_SECURE_NO_WARNINGS",
+		"GLFW_INCLUDE_NONE"
 	}
 
 	includedirs
@@ -21,6 +29,16 @@ project "Nebula"
 		"engine_src",
 		"vendor/spdlog/include",
 		"Nebula/vendor",
+		"%{IncludeDir.GLFW}",
+		"%{IncludeDir.Glad}",
+		"%{IncludeDir.glm}"
+	}
+
+	links
+	{
+		"GLFW",
+		"Glad",
+		"opengl32.lib"
 	}
 
 	filter "system:windows"

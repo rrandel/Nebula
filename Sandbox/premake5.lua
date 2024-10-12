@@ -17,7 +17,8 @@ project "Sandbox"
 	{
 		"%{wks.location}/Nebula/vendor/spdlog/include",
 		"%{wks.location}/Nebula/engine_src",
-		"%{wks.location}/Nebula/vendor"
+		"%{wks.location}/Nebula/vendor",
+		"%{IncludeDir.glm}"
 	}
 
 	links

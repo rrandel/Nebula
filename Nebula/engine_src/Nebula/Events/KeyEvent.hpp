@@ -2,46 +2,51 @@
 
 #include "Event.hpp"
 #include "EventCategoryOperators.hpp"
+#include <Nebula/Core/KeyCodes.hpp>
 
 namespace Nebula {
 
     class KeyEvent : public Event
     {
     public:
-        int GetKeyCode() const { return m_KeyCode; }
+        int32_t GetKeyCode() const { return m_KeyCode; }
 
         EVENT_CLASS_CATEGORY(EventCategory::Keyboard | EventCategory::Input)
     protected:
-        KeyEvent(int keycode)
+        KeyEvent(int32_t keycode)
             : m_KeyCode(keycode) {}
 
-        int m_KeyCode;
+        int32_t m_KeyCode;
     };
 
     class KeyPressedEvent : public KeyEvent {
     public:
-        KeyPressedEvent(int keycode, int repeatCount)
-            : KeyEvent(keycode), m_RepeatCount(repeatCount) {}
+        KeyPressedEvent(const KeyCode keycode, bool isRepeat = false)
+            : KeyEvent(keycode), m_IsRepeat(isRepeat) {}
 
-        int GetRepeatCount() const { return m_RepeatCount; }
+        bool IsRepeat() const { return m_IsRepeat; }
 
-        std::string ToString() const override {
-            return StringFromArgs("KeyPressedEvent: {} ({} repeats)", m_KeyCode, m_RepeatCount);
+        std::string ToString() const override
+        {
+            std::stringstream ss;
+            ss << "KeyPressedEvent: " << m_KeyCode << " (repeat = " << m_IsRepeat << ")";
+            return ss.str();
         }
 
         EVENT_CLASS_TYPE(KeyPressed)
-
     private:
-        int m_RepeatCount;
+        bool m_IsRepeat;
     };
 
     class KeyReleasedEvent : public KeyEvent {
     public:
-        KeyReleasedEvent(int keycode)
+        KeyReleasedEvent(int32_t keycode)
             : KeyEvent(keycode) {}
 
         std::string ToString() const override {
-            return StringFromArgs("KeyReleasedEvent: {}", m_KeyCode);
+            std::stringstream ss;
+            ss << "KeyReleasedEvent: " << m_KeyCode;
+            return ss.str();
         }
 
         EVENT_CLASS_TYPE(KeyReleased)
@@ -49,11 +54,13 @@ namespace Nebula {
 
     class KeyTypedEvent : public KeyEvent {
     public:
-        KeyTypedEvent(int keycode)
+        KeyTypedEvent(int32_t keycode)
             : KeyEvent(keycode) {}
 
         std::string ToString() const override {
-            return StringFromArgs("KeyTypedEvent: {}", m_KeyCode);
+            std::stringstream ss;
+            ss << "KeyTypedEvent: " << m_KeyCode;
+            return ss.str();
         }
 
         EVENT_CLASS_TYPE(KeyTyped)

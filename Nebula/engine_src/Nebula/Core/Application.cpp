@@ -1,15 +1,16 @@
 #include "nbpch.hpp"
 #include "Application.hpp"
 
-#include "Nebula/Events/ApplicationEvent.hpp"
 #include "Nebula/Core/Log.hpp"
+
+#include <glad/glad.h>
 
 namespace Nebula {
 
-#define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1)
-
 	Application::Application()
 	{
+		m_Window = std::unique_ptr<Window>(Window::Create());
+		m_Window->SetEventCallback(NB_BIND_EVENT_FN(OnEvent));
 	}
 
 	Application::~Application()
@@ -29,8 +30,8 @@ namespace Nebula {
 	void Application::OnEvent(Event& e)
 	{
 		EventDispatcher dispatcher(e);
+		dispatcher.Dispatch<WindowCloseEvent>(NB_BIND_EVENT_FN(OnWindowClose));
 
-		NB_CORE_TRACE("{0}", e);
 		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin(); )
 		{
 			(*--it)->OnEvent(e);
@@ -43,9 +44,19 @@ namespace Nebula {
 	{
 		while (m_Running)
 		{
+			glClearColor(0.1f, 0.1f, 0.1f, 0.1f);
+			glClear(GL_COLOR_BUFFER_BIT);
+			m_Window->OnUpdate();
+
 			for (Layer* layer : m_LayerStack)
 				layer->OnUpdate();
 		}
+	}
+
+	bool Application::OnWindowClose(WindowCloseEvent& e)
+	{
+		m_Running = false;
+		return true;
 	}
 
 }

@@ -1,44 +1,33 @@
 #include "nbpch.hpp"
-#include "WindowsInput.hpp"
+#include "Nebula/Core/Input.hpp"
 
 #include "Nebula/Core/Application.hpp"
+#include <GLFW/glfw3.h>
 
 namespace Nebula {
 
-	Input* Input::s_Instance = new WindowsInput();
-
-	bool WindowsInput::IsKeyPressedImpl(int keycode)
+	bool Input::IsKeyPressed(const KeyCode key)
 	{
-		//To-do
-		return 0;
+		auto* window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
+		auto state = glfwGetKey(window, static_cast<int32_t>(key));
+		return state == GLFW_PRESS;
 	}
 
-	bool WindowsInput::IsMouseButtonPressedImpl(int button)
+	bool Input::IsMouseButtonPressed(const MouseCode button)
 	{
-		//To-do
-		return 0;
+		auto* window = static_cast<GLFWwindow*>(Application::Get().GetWindow().GetNativeWindow());
+		auto state = glfwGetMouseButton(window, static_cast<int32_t>(button));
+		return state == GLFW_PRESS;
 	}
 
-	std::pair<float, float> WindowsInput::GetMousePositionImpl()
+	float Input::GetMouseX()
 	{
-		//To-do
-		float mouseX = 0.0f; // Replace with actual X coordinate retrieval logic
-		float mouseY = 0.0f; // Replace with actual Y coordinate retrieval logic
-
-		// Return the mouse position as a pair of floats
-		return std::make_pair(mouseX, mouseY);
+		return GetMousePosition().x;
 	}
 
-	float WindowsInput::GetMouseXImpl()
+	float Input::GetMouseY()
 	{
-		//To-do
-		return 0;
-	}
-
-	float WindowsInput::GetMouseYImpl()
-	{
-		//To-do
-		return 0;
+		return GetMousePosition().y;
 	}
 
 }
